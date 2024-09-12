@@ -4,33 +4,36 @@ const btnRef = document.querySelector('button');
 
 function createGrid(n,container) {
     // calculate width of single element
-    let containerWidth = window.getComputedStyle(containerRef, null).getPropertyValue('width')
-    let containerPad = window.getComputedStyle(containerRef, null).getPropertyValue('padding')
+    let containerWidth = window.getComputedStyle(containerRef, null).getPropertyValue('width');
+    let containerPad = window.getComputedStyle(containerRef, null).getPropertyValue('padding');
+    
+    const width = 1 / n;
+    const height =  Math.floor((+containerWidth.slice(0, containerWidth.length-2) - 2* +containerPad.slice(0, containerPad.length-2)) * width );
 
-    const width = Math.floor((+containerWidth.slice(0, containerWidth.length-2) - 2* +containerPad.slice(0, containerPad.length-2)) / n)
-
-
-    for(let i = 0; i < n; ++i) {
-        for(let j = 0; j < n; ++j) {
-            const square = document.createElement('div');
-            square.classList.add('grid-element');
-            square.style.maxWidth = `${width}px`
-            square.style.maxHeight = `${width}px`
-            square.style.minWidth = `${width*.99}px`
-            square.style.minHeight = `${width*.99}px`
-            container.appendChild(square);
-        }
+    for(let i = 0; i < n*n; ++i) {
+        const square = document.createElement('div');
+        square.classList.add('grid-element');
+        // set flex base to almost full width to still have free space to distribute
+        square.style.flex = `1 0 ${99.999*width}%`
+        square.style.minHeight = `${height}px`;
+        container.appendChild(square);
     }
 }
 
 
-
-
-
 containerRef.addEventListener('mouseover', (e) => {
     if(e.target.classList.contains('grid-element'))
-        e.target.classList.add('visited-element')
+        e.target.classList.add('visited-element');
+})
+btnRef.addEventListener('click', () => {
+    const N = prompt('Enter N to create a NxN grid (maximum 100)');
+    if(N > 0 && N <=100) {
+        while (containerRef.lastElementChild) {
+            containerRef.removeChild(containerRef.lastElementChild);
+          }
+          createGrid(N, containerRef)
+    }
 })
 
 
-createGrid(4, containerRef)
+createGrid(16, containerRef)
