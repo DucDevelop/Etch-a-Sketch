@@ -1,0 +1,14 @@
+.grid-element {
+    border: 2px solid black;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    padding: 32px;
+}
