@@ -1,4 +1,5 @@
 const containerRef = document.querySelector('.container');
+const btnRef = document.querySelector('button');
 
 
 function createGrid(n,container) {
@@ -22,6 +23,14 @@ function createGrid(n,container) {
     }
 }
 
+
+
+
+
+containerRef.addEventListener('mouseover', (e) => {
+    if(e.target.classList.contains('grid-element'))
+        e.target.classList.add('visited-element')
+})
 
 
 createGrid(4, containerRef)

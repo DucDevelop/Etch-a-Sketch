@@ -12,3 +12,7 @@
     align-items: center;
     padding: 32px;
 }
+
+.visited-element {
+    background-color: aqua;
+}
