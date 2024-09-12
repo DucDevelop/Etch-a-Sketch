@@ -22,8 +22,14 @@ function createGrid(n,container) {
 
 
 containerRef.addEventListener('mouseover', (e) => {
-    if(e.target.classList.contains('grid-element'))
-        e.target.style.backgroundColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+    if(e.target.classList.contains('grid-element')) {
+        const currentOpacity = window.getComputedStyle(e.target, null).getPropertyValue('opacity');
+        if(+currentOpacity === 1) {
+            // set bg color once if unvisited
+            e.target.style.backgroundColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+        }
+        e.target.style.opacity = Math.max(currentOpacity- .1, 0);
+    }
 })
 
 btnRef.addEventListener('click', () => {
@@ -33,6 +39,7 @@ btnRef.addEventListener('click', () => {
             containerRef.removeChild(containerRef.lastElementChild);
           }
           createGrid(N, containerRef)
+          opacity = 1;
     }
 })
 
